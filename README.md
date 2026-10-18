@@ -4,22 +4,31 @@ An agent skill that connects to a remote machine over SSH and works in a remote 
 
 ## Install
 
+Project install (available in the current project):
+
 ```sh
 npx skills add sabiviji/remote-work-ssh
+```
+
+Global install (available in every project):
+
+```sh
+npx skills add sabiviji/remote-work-ssh -g
 ```
 
 To install from a local clone:
 
 ```sh
-npx skills add /path/to/remote-work-ssh
+npx skills add /path/to/remote-work-ssh          # project
+npx skills add /path/to/remote-work-ssh -g       # global
 ```
 
 ## Configure
 
-Create `ssh.md` in your project or at `~/.config/remote-work-ssh/ssh.md`:
+The skill always reads and creates `ssh.md` in the project folder, whether it was installed for the project or globally. On first use, the skill creates `ssh.md` from the template and adds it to the project's `.gitignore`. You can also create it yourself:
 
 ```sh
-cp skills/remote-work-ssh/ssh.example.md ~/.config/remote-work-ssh/ssh.md
+cp skills/remote-work-ssh/ssh.example.md ssh.md
 ```
 
 Then choose one authentication method in the file:

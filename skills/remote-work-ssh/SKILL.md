@@ -7,7 +7,7 @@ metadata:
 
 # Remote Work over SSH
 
-Connection details live in `ssh.md`. Read it before every remote session. Never guess hosts, users, ports, key paths, or passwords.
+Connection details live in `ssh.md` in the project folder. Read it before every remote session. Never guess hosts, users, ports, key paths, or passwords.
 
 ## When to Activate
 
@@ -17,12 +17,9 @@ Connection details live in `ssh.md`. Read it before every remote session. Never 
 
 ## Step 1: Locate ssh.md
 
-Check these paths in order and use the first that exists:
+The project folder is `git rev-parse --show-toplevel`, or the current directory if that fails. `ssh.md` always lives at `<project folder>/ssh.md`.
 
-1. `./ssh.md` in the current project
-2. `~/.config/remote-work-ssh/ssh.md`
-
-If neither exists, copy `ssh.example.md` from this skill's folder to `~/.config/remote-work-ssh/ssh.md`, tell the user to fill it in, and stop.
+If it doesn't exist, copy `ssh.example.md` from this skill's folder to `<project folder>/ssh.md`, add `ssh.md` to the project's `.gitignore` if it's missing (create `.gitignore` if needed), tell the user to fill in `ssh.md`, and stop.
 
 ## Step 2: Validate the Configuration
 
@@ -91,7 +88,7 @@ SSHPASS="<value of password_env>" sshpass -e ssh -o PubkeyAuthentication=no -o P
 
 - Ask before destructive commands such as `rm -rf`, force pushes, dropping databases, disk operations, or service restarts.
 - Never print, copy, log, or commit passwords, key contents, or tokens.
-- Do not store credentials in any file other than the user's `ssh.md` or the environment.
+- Do not store credentials in any file other than the project's `ssh.md` or the environment.
 - Do not run commands on the remote machine that the user has not asked for.
 
 ## Unsupported Operations
