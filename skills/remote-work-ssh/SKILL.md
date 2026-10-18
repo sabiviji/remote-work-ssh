@@ -19,7 +19,12 @@ Connection details live in `ssh.md` in the project folder. Read it before every 
 
 The project folder is `git rev-parse --show-toplevel`, or the current directory if that fails. `ssh.md` always lives at `<project folder>/ssh.md`.
 
-If it doesn't exist, copy `ssh.example.md` from this skill's folder to `<project folder>/ssh.md`, add `ssh.md` to the project's `.gitignore` if it's missing (create `.gitignore` if needed), tell the user to fill in `ssh.md`, and stop.
+If it doesn't exist, create it from the template and tell the user to fill it in:
+
+1. Find `ssh.example.md`. It sits in this skill's folder, which depends on the agent. Check these paths in order and use the first that exists: `.agents/skills/remote-work-ssh/`, `.claude/skills/remote-work-ssh/`, `.opencode/skills/remote-work-ssh/`, `~/.agents/skills/remote-work-ssh/`, `~/.claude/skills/remote-work-ssh/`, `~/.config/opencode/skills/remote-work-ssh/`. If none exists, run `find ~ -path '*remote-work-ssh*' -name ssh.example.md 2>/dev/null | head -n 1`.
+2. Copy it to `<project folder>/ssh.md`.
+3. Add `ssh.md` to the project's `.gitignore` if it's missing. Create `.gitignore` if needed.
+4. Stop and tell the user to fill in `ssh.md`.
 
 ## Step 2: Validate the Configuration
 
@@ -67,7 +72,7 @@ ssh -o BatchMode=yes -o IdentitiesOnly=yes -i <identity_file> -p <port> <user>@<
 - Disable key-based attempts so only the password is used:
 
 ```sh
-SSHPASS="<value of password_env>" sshpass -e ssh -o PubkeyAuthentication=no -o PreferredAuthentications=password -p <port> <user>@<host> 'hostname && whoami'
+SSHPASS="$(printenv <password_env>)" sshpass -e ssh -o PubkeyAuthentication=no -o PreferredAuthentications=password -p <port> <user>@<host> 'hostname && whoami'
 ```
 
 - If `proxy_jump` is set, add `-J <proxy_jump>`.
